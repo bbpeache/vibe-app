@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { collection, query, orderBy, limit, onSnapshot, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from '../firebaseService';
 import { User, ChatMessage } from '../types';
-import { FaPaperPlane, FaMicrophone, FaXmark, FaReply, FaShare } from 'react-icons/fa6';
+import { FaPaperPlane, FaXmark, FaReply, FaShare } from 'react-icons/fa6';
 
 interface ChatViewProps {
   currentUser: User;
@@ -53,7 +53,7 @@ const ChatView: React.FC<ChatViewProps> = ({ currentUser }) => {
   return (
     <div className="flex flex-col h-full relative pb-20 bg-black">
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto px-3 pt-4 pb-4 space-y-4 no-scrollbar">
+      <div className="flex-1 overflow-y-auto px-3 pt-4 pb-4 space-y-5 no-scrollbar">
         {messages.map((msg) => {
           const isMe = msg.uid === currentUser.uid;
           return (
@@ -67,17 +67,17 @@ const ChatView: React.FC<ChatViewProps> = ({ currentUser }) => {
                  </div>
                )}
 
-              <div className="relative max-w-[85%] flex items-center gap-2">
+              <div className="relative max-w-[85%] flex items-end gap-2 group/message">
                  {/* Order changes based on sender for the reply button position */}
                  {isMe ? (
                     <>
-                        {/* Reply Button (Left of message for me) */}
+                        {/* Reply Button (Appears on hover) */}
                         <button 
                             onClick={() => setReplyTo(msg)}
-                            className="text-gray-600 hover:text-accent p-2 opacity-50 hover:opacity-100 transition-opacity"
+                            className="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-accent bg-white/5 rounded-full transition-all opacity-0 group-hover/message:opacity-100 mb-1"
                             title="Yanıtla"
                         >
-                            <FaReply size={12} />
+                            <FaReply size={10} />
                         </button>
 
                         <div 
@@ -95,13 +95,13 @@ const ChatView: React.FC<ChatViewProps> = ({ currentUser }) => {
                             {msg.text}
                         </div>
                         
-                        {/* Reply Button (Right of message for others) */}
+                        {/* Reply Button (Right side for others) */}
                         <button 
                             onClick={() => setReplyTo(msg)}
-                            className="text-gray-600 hover:text-accent p-2 opacity-50 hover:opacity-100 transition-opacity"
+                            className="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-accent bg-white/5 rounded-full transition-all opacity-0 group-hover/message:opacity-100 mb-1"
                             title="Yanıtla"
                         >
-                            <FaReply size={12} />
+                            <FaReply size={10} />
                         </button>
                     </>
                  )}

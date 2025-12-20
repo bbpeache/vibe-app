@@ -48,19 +48,19 @@ const FeedView: React.FC<FeedViewProps> = ({ user, onCommentClick }) => {
 
   return (
     <div className="flex flex-col h-full bg-black pb-24">
-      {/* Stories Rail - Adjusted Aspect Ratio & Spacing */}
-      <div className="shrink-0 w-full overflow-x-auto no-scrollbar pt-3 pb-2 border-b border-white/5 bg-surface/30 backdrop-blur-sm z-10">
+      {/* Stories Rail - 9:16 Aspect Ratio (Vertical/Tall) */}
+      <div className="shrink-0 w-full overflow-x-auto no-scrollbar py-4 border-b border-white/5 bg-surface/30 backdrop-blur-sm z-10">
         <div className="flex gap-3 px-4 items-start">
           {/* Add Story Button */}
           <div 
             onClick={() => setShowAddStory(true)}
             className="flex flex-col items-center gap-1 shrink-0 cursor-pointer group"
           >
-            <div className="w-[60px] h-[60px] rounded-full border border-dashed border-gray-500 flex items-center justify-center bg-white/5 group-hover:border-primary transition-colors relative">
-              <FaPlus className="text-primary text-xl" />
-              <div className="absolute inset-0 bg-primary/10 rounded-full scale-0 group-hover:scale-100 transition-transform" />
+            <div className="w-[85px] aspect-[9/16] rounded-xl border-2 border-dashed border-gray-600 flex items-center justify-center bg-white/5 group-hover:border-primary transition-all relative overflow-hidden shadow-lg">
+              <FaPlus className="text-primary text-xl z-10" />
+              <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
-            <span className="text-[10px] text-gray-400 font-medium">Ekle</span>
+            <span className="text-[10px] text-gray-400 font-medium mt-1 truncate w-[85px] text-center">Hikaye Ekle</span>
           </div>
 
           {/* Stories List */}
@@ -70,23 +70,30 @@ const FeedView: React.FC<FeedViewProps> = ({ user, onCommentClick }) => {
                 onClick={() => setViewingStory(story)}
                 className="flex flex-col items-center gap-1 shrink-0 cursor-pointer group"
              >
-               <div className="w-[60px] h-[60px] rounded-full p-[2px] bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 group-hover:scale-105 transition-transform">
-                 <div className="w-full h-full rounded-full border-2 border-black overflow-hidden relative bg-gray-800">
+               <div className="w-[85px] aspect-[9/16] rounded-xl p-[2px] bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 group-hover:scale-105 transition-transform shadow-lg relative">
+                 <div className="w-full h-full rounded-[10px] border-2 border-black overflow-hidden relative bg-gray-800">
+                   {/* Show story image if available, otherwise avatar */}
                    <img 
-                     src={story.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${story.uid}`} 
+                     src={story.image || story.avatar} 
                      alt={story.username} 
                      className="w-full h-full object-cover"
                    />
+                   {/* Mini User Avatar Badge at bottom right */}
+                   <div className="absolute bottom-1 right-1 w-6 h-6 rounded-full border border-black overflow-hidden z-10">
+                      <img src={story.avatar} className="w-full h-full object-cover" />
+                   </div>
+                   {/* Gradient Overlay for text readability */}
+                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60"></div>
                  </div>
                </div>
-               <span className="text-[10px] text-gray-300 w-14 truncate text-center">{story.username}</span>
+               <span className="text-[10px] text-gray-300 w-[85px] truncate text-center mt-1 font-medium">{story.username}</span>
              </div>
           ))}
         </div>
       </div>
 
-      {/* Filter Categories - More compact */}
-      <div className="shrink-0 px-4 py-2 flex gap-2 overflow-x-auto no-scrollbar bg-black/50 sticky top-0 z-10 backdrop-blur-md">
+      {/* Filter Categories */}
+      <div className="shrink-0 px-4 py-3 flex gap-2 overflow-x-auto no-scrollbar bg-black/80 sticky top-0 z-10 backdrop-blur-md border-b border-white/5">
         <FilterChip label="Tümü" active={filter === 'all'} onClick={() => setFilter('all')} />
         <FilterChip label="Medya" active={filter === 'media'} onClick={() => setFilter('media')} />
         <FilterChip label="Kaydedilenler" active={filter === 'saved'} onClick={() => setFilter('saved')} />
@@ -121,7 +128,7 @@ const FeedView: React.FC<FeedViewProps> = ({ user, onCommentClick }) => {
 const FilterChip: React.FC<{ label: string, active: boolean, onClick: () => void }> = ({ label, active, onClick }) => (
   <button 
     onClick={onClick}
-    className={`px-4 py-1.5 rounded-full text-[12px] font-medium transition-all whitespace-nowrap border ${active ? 'bg-primary border-primary text-white shadow-[0_0_10px_rgba(124,58,237,0.4)]' : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'}`}
+    className={`px-5 py-2 rounded-full text-[13px] font-medium transition-all whitespace-nowrap border ${active ? 'bg-primary border-primary text-white shadow-[0_0_10px_rgba(124,58,237,0.4)]' : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'}`}
   >
     {label}
   </button>

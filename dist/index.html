@@ -4,24 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>VIBE OS</title>
-    <!-- Tailwind CSS CDN - Loaded immediately -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: 'var(--primary)',
-                        surface: 'var(--surface-color)',
-                        accent: 'var(--accent)',
-                    },
-                    boxShadow: {
-                        'neon': '0 0 15px var(--primary-glow)',
-                    }
-                }
-            }
-        }
-    </script>
     <style>
         :root {
             --bg-color: #000000;
@@ -61,6 +43,7 @@
         .animate-text-shimmer { background-size: 200% auto; animation: shimmer 3s linear infinite; }
         .animate-logo-glow { animation: glow 2s ease-in-out infinite alternate; }
     </style>
+
 <script type="importmap">
 {
   "imports": {
@@ -74,10 +57,9 @@
   }
 }
 </script>
+  <script type="module" crossorigin src="/vibe-app/assets/index-BCzHSXur.js"></script>
 </head>
 <body>
-    <div id="root"></div>
-    <!-- Changed path to relative for better GitHub Pages compatibility -->
-    <script type="module" src="./index.tsx"></script>
+    <div id="root"></div>
 </body>
 </html>

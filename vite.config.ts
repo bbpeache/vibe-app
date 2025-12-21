@@ -4,9 +4,8 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // ÖNEMLİ: 'REPO_ADI' kısmını GitHub'daki repository adınla değiştir (örn: '/vibe-app/')
-  // Eğer kullanıcı.github.io ana dizinine kuracaksan '/' olarak bırak.
-  base: '/vibe-app/', 
+  // Use relative base path to support any repository name or subfolder deployment
+  base: './', 
   build: {
     outDir: 'dist',
   }

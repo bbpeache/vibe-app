@@ -48,26 +48,22 @@ const FeedView: React.FC<FeedViewProps> = ({ user, onCommentClick }) => {
 
   return (
     <div className="flex flex-col h-full bg-black">
-      {/* 
-         Structure Change: 
-         Everything is now inside a single scrollable container.
-         Stories scroll away, Filters stick to the top.
-      */}
+      {/* Main Scroll Container */}
       <div className="flex-1 overflow-y-auto no-scrollbar pb-24 relative">
         
-        {/* Stories Rail - Scrolls with content */}
-        <div className="w-full overflow-x-auto no-scrollbar py-4 bg-gradient-to-b from-surface/50 to-transparent">
-          <div className="flex gap-3 px-4 items-start">
+        {/* Stories Section (Scrolls with page) */}
+        <div className="w-full pt-4 pb-2">
+          <div className="flex gap-3 px-4 overflow-x-auto no-scrollbar pb-2">
             {/* Add Story Button */}
             <div 
               onClick={() => setShowAddStory(true)}
               className="flex flex-col items-center gap-1 shrink-0 cursor-pointer group"
             >
-              <div className="w-[80px] aspect-[9/16] rounded-xl border-2 border-dashed border-gray-600 flex items-center justify-center bg-white/5 group-hover:border-primary transition-all relative overflow-hidden shadow-lg">
+              <div className="w-[70px] aspect-[9/16] rounded-xl border-2 border-dashed border-gray-600 flex items-center justify-center bg-white/5 group-hover:border-primary transition-all relative overflow-hidden shadow-lg">
                 <FaPlus className="text-primary text-xl z-10" />
                 <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
-              <span className="text-[10px] text-gray-400 font-medium mt-1 truncate w-[80px] text-center">Ekle</span>
+              <span className="text-[10px] text-gray-400 font-medium truncate w-[70px] text-center">Ekle</span>
             </div>
 
             {/* Stories List */}
@@ -77,34 +73,33 @@ const FeedView: React.FC<FeedViewProps> = ({ user, onCommentClick }) => {
                   onClick={() => setViewingStory(story)}
                   className="flex flex-col items-center gap-1 shrink-0 cursor-pointer group"
                >
-                 <div className="w-[80px] aspect-[9/16] rounded-xl p-[2px] bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 group-hover:scale-105 transition-transform shadow-lg relative">
+                 <div className="w-[70px] aspect-[9/16] rounded-xl p-[2px] bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 group-hover:scale-105 transition-transform shadow-lg relative">
                    <div className="w-full h-full rounded-[10px] border-2 border-black overflow-hidden relative bg-gray-800">
                      <img 
                        src={story.image || story.avatar} 
                        alt={story.username} 
                        className="w-full h-full object-cover"
                      />
-                     <div className="absolute bottom-1 right-1 w-5 h-5 rounded-full border border-black overflow-hidden z-10">
+                     <div className="absolute bottom-1 right-1 w-4 h-4 rounded-full border border-black overflow-hidden z-10">
                         <img src={story.avatar} className="w-full h-full object-cover" />
                      </div>
-                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60"></div>
                    </div>
                  </div>
-                 <span className="text-[10px] text-gray-300 w-[80px] truncate text-center mt-1 font-medium">{story.username}</span>
+                 <span className="text-[10px] text-gray-300 w-[70px] truncate text-center font-medium">{story.username}</span>
                </div>
             ))}
           </div>
         </div>
 
         {/* Filter Categories - Sticky Header */}
-        <div className="sticky top-0 z-30 bg-black/85 backdrop-blur-xl border-y border-white/5 py-3 px-4 flex gap-2 overflow-x-auto no-scrollbar shadow-lg">
+        <div className="sticky top-0 z-40 bg-black/95 backdrop-blur-md border-y border-white/5 py-3 px-4 flex gap-2 overflow-x-auto no-scrollbar shadow-lg mb-2">
           <FilterChip label="Tümü" active={filter === 'all'} onClick={() => setFilter('all')} />
           <FilterChip label="Medya" active={filter === 'media'} onClick={() => setFilter('media')} />
           <FilterChip label="Kaydedilenler" active={filter === 'saved'} onClick={() => setFilter('saved')} />
         </div>
 
         {/* Posts List */}
-        <div className="px-2 pt-4">
+        <div className="px-2">
           {filteredPosts.map(post => (
             <PostCard 
               key={post.id} 
@@ -133,7 +128,7 @@ const FeedView: React.FC<FeedViewProps> = ({ user, onCommentClick }) => {
 const FilterChip: React.FC<{ label: string, active: boolean, onClick: () => void }> = ({ label, active, onClick }) => (
   <button 
     onClick={onClick}
-    className={`px-5 py-1.5 rounded-full text-[12px] font-bold transition-all whitespace-nowrap border ${active ? 'bg-primary border-primary text-white shadow-[0_0_10px_rgba(124,58,237,0.4)]' : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'}`}
+    className={`px-4 py-1.5 rounded-full text-[11px] font-bold transition-all whitespace-nowrap border ${active ? 'bg-primary border-primary text-white shadow-[0_0_10px_rgba(124,58,237,0.4)]' : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'}`}
   >
     {label}
   </button>
